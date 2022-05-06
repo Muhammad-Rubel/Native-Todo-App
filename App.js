@@ -1,10 +1,19 @@
+import React, { useState } from "react";
 import tw from "twrnc";
-
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 
 export default function App() {
-  const todos = [
+  let [newTodo, setNewTodo] = "";
+
+  const [todos, setTodos] = useState([
     {
       id: 1,
       name: "Go to Shop",
@@ -45,7 +54,17 @@ export default function App() {
       id: 10,
       name: "Watch Movie",
     },
-  ];
+  ]);
+
+  const addNewTodo = () => {
+    if (newTodo) {
+      const obj = {
+        id: Math.random(),
+        name: newTodo,
+      };
+      setTodos([obj, ...todos]);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -56,6 +75,24 @@ export default function App() {
 
       {/* Todos */}
       <View style={styles.todoContainer}>
+        {/* Add new todo */}
+        <View>
+          <Text>Add new Todo</Text>
+          <TextInput
+            style={tw`border-b-2 focus:outline-none`}
+            placeholder="Go to shop..."
+            onChange={(value) => {
+              setNewTodo(value);
+            }}
+          ></TextInput>
+
+          <TouchableOpacity
+            onPress={addNewTodo}
+            style={tw`px-6 py-2 rounded bg-blue-500 text-white mt-2 ml-auto`}
+          >
+            <Text>Add +</Text>
+          </TouchableOpacity>
+        </View>
         <FlatList
           keyExtractor={(item) => item.id}
           data={todos}
