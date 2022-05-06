@@ -1,3 +1,5 @@
+import tw from "twrnc";
+
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 
@@ -44,11 +46,12 @@ export default function App() {
       name: "Watch Movie",
     },
   ];
+
   return (
     <View style={styles.container}>
       {/* header */}
-      <View style={styles.header}>
-        <Text style={styles.title}>My Todo App</Text>
+      <View style={tw`flex-1 justify-center items-center`}>
+        <Text style={tw`text-2xl font-bold`}>My Todo App</Text>
       </View>
 
       {/* Todos */}
